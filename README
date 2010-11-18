@@ -1,0 +1,3 @@
+OpenFrameworks addon that allow dealing with "DisplayObjects" in a similar way Flash does. Each DisplayStackObject has its own translation, rotation, and color coordinates and can have as childs other DisplayStackObject that will inherit it's parents transformations.
+
+* The name DisplaySTACK was chosen to avoid confusion with OpegGL's DisplayLists
