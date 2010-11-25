@@ -1,0 +1,29 @@
+<install>
+
+	<version>0.1</version>
+	<author>Paulo Barcelos</author>
+	<url></url>
+    
+    <requires>
+        <addon>ofxFBOTexture</addon>
+    </requires>
+		
+	<add>	
+		<src>
+			<folder name="addons/ofxDisplayStackObject/src">			
+				<file>../../../addons/ofxDisplayStackObject/src/ofxDisplayStackObject.h</file>
+				<file>../../../addons/ofxDisplayStackObject/src/ofxDisplayStackObject.cpp</file>
+                <file>../../../addons/ofxDisplayStackObject/src/ofxFBODisplayStackObject.h</file>
+				<file>../../../addons/ofxDisplayStackObject/src/ofxFBODisplayStackObject.cpp</file>
+			</folder>
+		</src>
+
+		<include>
+			<path>../../../addons/ofxDisplayStackObject/src</path>
+		</include>
+		
+		<link>
+		</link>
+	</add>
+	
+</install>
