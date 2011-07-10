@@ -14,7 +14,7 @@
 #include <iostream>
 #include <list>
 #include "ofMain.h"
-#include "ofxVec4f.h"
+//#include "ofVec4f.h"
 ////////////////////////////////////////////////////////////
 // CLASS DEFINITION ----------------------------------------
 ////////////////////////////////////////////////////////////
@@ -39,18 +39,18 @@ public:
 	
 	//virtual bool				contains(ofxDisplayStackObject* object); // TODO
 	
-	virtual ofxVec4f			positionToGlobal	(ofxVec4f inputPositon, ofxDisplayStackObject * relativeParent = NULL);
-	virtual ofxVec4f			positionToLocal		(ofxVec4f inputPositon);
-	//virtual ofxVec4f			rotationToGlobal	(ofxVec4f rotation);
-	//virtual ofxVec4f			rotationToLocal		(ofxVec4f rotation);
+	virtual ofVec4f			positionToGlobal	(ofVec4f inputPositon, ofxDisplayStackObject * relativeParent = NULL);
+	virtual ofVec4f			positionToLocal		(ofVec4f inputPositon);
+	//virtual ofVec4f			rotationToGlobal	(ofVec4f rotation);
+	//virtual ofVec4f			rotationToLocal		(ofVec4f rotation);
 	
-	virtual ofxVec4f			colorToGloabal(ofxVec4f inputColor);
+	virtual ofVec4f			colorToGloabal(ofVec4f inputColor);
 	
 	ofBaseDraws*				baseObject;	
-	ofxVec4f					position;	
-	ofxVec4f					scale;
-	ofxVec4f					rotation;
-	ofxVec4f					color;
+	ofVec4f					position;	
+	ofVec4f					scale;
+	ofVec4f					rotation;
+	ofVec4f					color;
 	
 	ofxDisplayStackObject*		parent;
 	list<ofxDisplayStackObject*> childs;

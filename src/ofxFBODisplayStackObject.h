@@ -1,5 +1,5 @@
 /*
- *  ofxFBODisplayStackObject.h
+ *  ofxFboDisplayStackObject.h
  *  DisplayList
  *
  *  Created by Paulo Barcelos on 31/10/10.
@@ -10,29 +10,23 @@
 
 #pragma once
 
-#include "ofxDisplayStackObject.h" 
-#include "ofxFBOTexture.h"
+#include "ofxDisplayStackObject.h"
 ////////////////////////////////////////////////////////////
 // CLASS DEFINITION ----------------------------------------
 ////////////////////////////////////////////////////////////
-class ofxFBODisplayStackObject : public ofxDisplayStackObject {
+class ofxFboDisplayStackObject : public ofxDisplayStackObject {
 public:
-	ofxFBODisplayStackObject();
+	ofxFboDisplayStackObject();
 	
-	// We do not extend ofxFBOTexture, but we provide access to its public methods
-	virtual void				allocate(int w, int h, int internalGlDataType = GL_RGBA, int numSamples = 0);
-	virtual void				clear();
-	virtual void				clear(float r, float g, float b, float a);	
-	virtual void				bindAsTexture();	
-	virtual void*				getPixels();	
+	virtual void	setup(int w, int h);
 	
 	// We can can draw only the fbo to the screen (and don't change the fbo content), or draw inside the fbo first and subsequently draw it to the screen (default)
-	virtual void				draw(bool autoDrawInFBO = true);
+	virtual void	draw(bool autoDrawInFBO = true);
 	// You can alsojust draw inside the fbo, without rendering it to the screen
-	virtual void				drawInFBO();
+	virtual void	drawInFBO();
 	
-	ofxFBOTexture				fbo;
+	ofFbo			fbo;
 						
 private:
-	bool						_isFBOAllocated;
+	bool			_isFBOAllocated;
 };

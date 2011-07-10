@@ -1,5 +1,5 @@
 /*
- *  ofxFBODisplayStackObject.cpp
+ *  ofxFboDisplayStackObject.cpp
  *  DisplayList
  *
  *  Created by Paulo Barcelos on 31/10/10.
@@ -8,51 +8,30 @@
  */
 
 
-#include "ofxFBODisplayStackObject.h"
+#include "ofxFboDisplayStackObject.h"
 
 ////////////////////////////////////////////////////////////
 // CONSTRUCTOR ---------------------------------------------
 ////////////////////////////////////////////////////////////
-ofxFBODisplayStackObject::ofxFBODisplayStackObject() {
+ofxFboDisplayStackObject::ofxFboDisplayStackObject() {
 	_isFBOAllocated = false;
 	ofxDisplayStackObject::ofxDisplayStackObject();
 }	
 ////////////////////////////////////////////////////////////
-// allocate ------------------------------------------------
+// setup ------------------------------------------------
 ////////////////////////////////////////////////////////////
-void ofxFBODisplayStackObject::allocate(int w, int h, int internalGlDataType, int numSamples){
-	fbo.allocate(w, h, internalGlDataType, numSamples);
-}
-////////////////////////////////////////////////////////////
-// clear ---------------------------------------------------
-////////////////////////////////////////////////////////////
-void ofxFBODisplayStackObject::clear(){
-	fbo.clear();
-}
-void ofxFBODisplayStackObject::clear(float r, float g, float b, float a){
-	fbo.clear(r,g,b,a);
-}
-////////////////////////////////////////////////////////////
-// bindAsTexture --------------------------------------------
-////////////////////////////////////////////////////////////
-void ofxFBODisplayStackObject::bindAsTexture(){
-	fbo.bindAsTexture();
-}
-////////////////////////////////////////////////////////////
-// getPixels -----------------------------------------------
-////////////////////////////////////////////////////////////
-void* ofxFBODisplayStackObject::getPixels(){
-	return fbo.getPixels();
+void ofxFboDisplayStackObject::setup(int w, int h){
+	fbo.setup(w, h);
 }
 ////////////////////////////////////////////////////////////
 // drawInFBO -----------------------------------------------
 ////////////////////////////////////////////////////////////
-void ofxFBODisplayStackObject::drawInFBO(){
+void ofxFboDisplayStackObject::drawInFBO(){
 	// and draw it inside the fbo, with the color trasformation
 	fbo.begin();
 	glPushAttrib(GL_CURRENT_BIT);
 	ofEnableAlphaBlending();
-	ofxVec4f tintColor =  colorToGloabal(color);
+	ofVec4f tintColor =  colorToGloabal(color);
 	glColor4f(tintColor.x, tintColor.y, tintColor.z, tintColor.w);
 	if(_baseObjectToBack){if(baseObject != NULL)baseObject->draw(0,0);}
 	for (list<ofxDisplayStackObject*>::iterator it = childs.begin(); it!=childs.end(); ++it) (*it)->draw();
@@ -64,7 +43,7 @@ void ofxFBODisplayStackObject::drawInFBO(){
 ////////////////////////////////////////////////////////////
 // draw ----------------------------------------------------
 ////////////////////////////////////////////////////////////
-void ofxFBODisplayStackObject::draw(bool autoDrawInFBO) {
+void ofxFboDisplayStackObject::draw(bool autoDrawInFBO) {
 	if(autoDrawInFBO) drawInFBO();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);

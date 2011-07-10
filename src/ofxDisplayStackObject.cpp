@@ -15,10 +15,19 @@
 ////////////////////////////////////////////////////////////
 ofxDisplayStackObject::ofxDisplayStackObject() {
 	this->baseObject = NULL;
-	position = 0;
-	scale = 1.0f;
-	rotation = 0;
-	color = 1.0f;
+	position.x = 0;
+	position.y = 0;
+	position.z = 0;
+	scale.x = 1.0f;
+	scale.y = 1.0f;
+	scale.z = 1.0f;
+	rotation.x = 0;
+	rotation.y = 0;
+	rotation.z = 0;
+	color.x = 1.0f;
+	color.y = 1.0f;
+	color.z = 1.0f;
+	color.w = 1.0f;
 	parent = NULL;
 	_baseObjectToBack = true;
 }	
@@ -89,13 +98,13 @@ void ofxDisplayStackObject::baseObjectToFront(){
 ////////////////////////////////////////////////////////////
 // positionToGlobal ----------------------------------------
 ////////////////////////////////////////////////////////////
-ofxVec4f ofxDisplayStackObject::positionToGlobal(ofxVec4f inputPositon, ofxDisplayStackObject * relativeParent){
+ofVec4f ofxDisplayStackObject::positionToGlobal(ofVec4f inputPositon, ofxDisplayStackObject * relativeParent){
 	inputPositon *= scale;
 
 	float dist = sqrt(inputPositon.x * inputPositon.x + inputPositon.y * inputPositon.y);
 	float angle = atan2(inputPositon.y, inputPositon.x);
 		
-	ofxVec4f outputPositon = this->position;
+	ofVec4f outputPositon = this->position;
 	outputPositon.x += dist * cosf(angle + rotation.z*DEG_TO_RAD);
 	outputPositon.y += dist * sinf(angle + rotation.z*DEG_TO_RAD);
 	
@@ -105,14 +114,14 @@ ofxVec4f ofxDisplayStackObject::positionToGlobal(ofxVec4f inputPositon, ofxDispl
 ////////////////////////////////////////////////////////////
 // positionToLocal -----------------------------------------
 ////////////////////////////////////////////////////////////
-ofxVec4f ofxDisplayStackObject::positionToLocal(ofxVec4f inputPositon){
+ofVec4f ofxDisplayStackObject::positionToLocal(ofVec4f inputPositon){
 	//http://www.vbforums.com/showthread.php?t=527338
 	if(parent != NULL) inputPositon = parent->positionToLocal(inputPositon);
 	
 	inputPositon -= this->position;
 	inputPositon /= scale;
 	
-	ofxVec4f outputPositon;
+	ofVec4f outputPositon;
 	float radRotation = -rotation.z * DEG_TO_RAD;
 	outputPositon.x = inputPositon.x * cosf(radRotation) - inputPositon.y * sinf(radRotation);
 	outputPositon.y = inputPositon.x * sinf(radRotation) + inputPositon.y * cosf(radRotation);
@@ -122,10 +131,10 @@ ofxVec4f ofxDisplayStackObject::positionToLocal(ofxVec4f inputPositon){
 ////////////////////////////////////////////////////////////
 // colorToGloabal ------------------------------------------
 ////////////////////////////////////////////////////////////
-ofxVec4f ofxDisplayStackObject::colorToGloabal(ofxVec4f inputColor) {
+ofVec4f ofxDisplayStackObject::colorToGloabal(ofVec4f inputColor) {
 	if(parent!=NULL)
 	{
-		ofxVec4f outputColor = inputColor;
+		ofVec4f outputColor = inputColor;
 			
 		// clamp the color to the parents value
 		outputColor.x = ofClamp(outputColor.x, outputColor.x, parent->color.x);
@@ -167,7 +176,7 @@ void ofxDisplayStackObject::draw() {
 		glPushAttrib(GL_CURRENT_BIT);
 			// apply the color transformation from the parents
 			ofEnableAlphaBlending();
-			ofxVec4f tintColor =  colorToGloabal(color);
+			ofVec4f tintColor =  colorToGloabal(color);
 			glColor4f(tintColor.x, tintColor.y, tintColor.z, tintColor.w);
 			if(_baseObjectToBack){if(baseObject != NULL)baseObject->draw(0,0);}
 			for (list<ofxDisplayStackObject*>::iterator it = childs.begin(); it!=childs.end(); ++it) (*it)->draw();

@@ -21,10 +21,10 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 	
 		ofImage					image;	
-		ofxDisplayStackObject	dlo, dloChild, dloChildChild, dloChildChild2;
+		ofxDisplayStackObject	parent, childA, childB;
 	
-		ofxVec4f				localizedPosition;
-		ofxVec4f				globalizedPosition;
+		ofVec4f					localizedPosition;
+		ofVec4f					globalizedPosition;
 
 };
 
