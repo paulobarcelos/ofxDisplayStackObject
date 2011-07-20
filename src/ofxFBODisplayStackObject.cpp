@@ -21,7 +21,7 @@ ofxFboDisplayStackObject::ofxFboDisplayStackObject() {
 // setup ------------------------------------------------
 ////////////////////////////////////////////////////////////
 void ofxFboDisplayStackObject::setup(int w, int h){
-	fbo.setup(w, h);
+	fbo.allocate(w, h);
 }
 ////////////////////////////////////////////////////////////
 // drawInFBO -----------------------------------------------
